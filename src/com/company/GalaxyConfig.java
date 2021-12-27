@@ -5,6 +5,8 @@ import com.company.Units.Cruiser;
 import com.company.Units.Destroyer;
 import com.company.Units.Dreadnought;
 
+import java.util.Arrays;
+
 /**
  * At the center is a system that contains the planet Mecatol Rex.
  * To the north is system that contains the planets Vega Minor and Vega Major.
@@ -39,6 +41,28 @@ public class GalaxyConfig {
         SolarSystem south       = new SolarSystem();
         SolarSystem southWest   = new SolarSystem();
         SolarSystem northWest   = new SolarSystem();
+
+        // Central Systems Relations
+        Arrays.asList(north, northEast, southEast, south, southWest, northWest).forEach(center::addNeighbour);
+
+        // Northern System Relations
+        north.addNeighbour(new SolarSystem());
+        Arrays.asList(center, northEast, northWest).forEach(north::addNeighbour);
+
+        // North-Eastern System Relations
+        Arrays.asList(center, north, southEast).forEach(northEast::addNeighbour);
+
+        // South-Eastern System Relations
+        Arrays.asList(center, northEast, south).forEach(southEast::addNeighbour);
+
+        // Southern System Relations
+        Arrays.asList(center, southEast, southWest).forEach(south::addNeighbour);
+
+        // South-Western System Relations
+        Arrays.asList(center, south, northWest).forEach(southWest::addNeighbour);
+
+        // North-Western System Relations
+        Arrays.asList(center, southWest, north).forEach(northWest::addNeighbour);
 
         // Center Systems Planets
         galaxy.getCenter().addPlanet(new Planet(PlanetNames.MecatolRex));

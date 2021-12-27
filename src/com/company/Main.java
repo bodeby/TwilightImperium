@@ -1,22 +1,19 @@
 package com.company;
 
-import com.company.Units.Carrier;
-import com.company.Units.Dreadnought;
-import com.company.Units.Unit;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
         System.out.println("Twilight Imperium");
 
         Galaxy galaxy = GalaxyConfig.Create();
 
-        System.out.println(galaxy.getNorth().getPlanets());
-        System.out.println(galaxy.getNorth().getShips());
+        // Displaying all Solar Systems in Galaxy
+        System.out.println("\nCenter: " + galaxy.getCenter().toString());
+        System.out.println("\nNorth: " + galaxy.getNorth().toString());
+        System.out.println("\nNorth-East: " + galaxy.getNorthEast().toString());
+        System.out.println("\nSouth-East: " + galaxy.getSouthEast().toString());
+        System.out.println("\nSouth: " + galaxy.getSouth().toString());
+        System.out.println("\nSouth-West: " + galaxy.getSouthWest().toString());
+        System.out.println("\nNorth-West: " + galaxy.getNorthWest().toString());
     }
 }

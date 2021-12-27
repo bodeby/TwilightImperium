@@ -10,8 +10,19 @@ public class SolarSystem {
     ArrayList<Unit> ships;
 
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SolarSystem = {");
+        sb.append("\n   planets=").append(planets);
+        sb.append("\n   neighbours=").append(neighbours);
+        sb.append("\n   ships=").append(ships);
+        sb.append("\n}");
+        return sb.toString();
+    }
+
     public SolarSystem() {
         this.planets = new HashSet<>();
+        this.neighbours = new HashSet<>();
         this.ships = new ArrayList<>();
     }
 
@@ -34,9 +45,15 @@ public class SolarSystem {
 
     // Method to add neighbours to the system
     public void addNeighbour(SolarSystem neighbour) {
-       if (neighbours.size() <= 5) {
+       if (this.neighbours.size() <= 5) {
            this.neighbours.add(neighbour);
+       } else {
+           System.out.println("A System can't have more than 6 Neighbours");
        }
+    }
+
+    public Set<SolarSystem> getNeighbours() {
+        return neighbours;
     }
 
     // Method to add Units to the System
