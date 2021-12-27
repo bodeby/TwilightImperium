@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        java.lang.System.out.println("Twilight");
+        System.out.println("Twilight Imperium");
 
         Galaxy galaxy = GalaxyConfig.Create();
 
