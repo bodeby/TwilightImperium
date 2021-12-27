@@ -1,4 +1,6 @@
-package com.company;
+package com.company.Units;
+
+import com.company.Player;
 
 public interface Unit {
 

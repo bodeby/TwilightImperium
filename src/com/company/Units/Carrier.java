@@ -1,6 +1,8 @@
-package com.company;
+package com.company.Units;
 
-public class Cruiser implements Unit {
+import com.company.Player;
+
+public class Carrier implements Unit {
     Player player;
     int resourceCost;
     int combatValue;
@@ -9,18 +11,18 @@ public class Cruiser implements Unit {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Cruiser{");
+        final StringBuffer sb = new StringBuffer("Carrier{");
         sb.append("player=").append(player);
         sb.append('}');
         return sb.toString();
     }
 
-    public Cruiser(Player player) {
+    public Carrier(Player player) {
         this.player = player;
-        this.resourceCost = 2;
-        this.combatValue = 7;
-        this.movementSpeed = 2;
-        this.capacity = 0;
+        this.resourceCost = 3;
+        this.combatValue = 9;
+        this.movementSpeed = 1;
+        this.capacity = 6;
     }
 
     @Override
