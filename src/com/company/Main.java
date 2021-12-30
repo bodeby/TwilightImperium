@@ -7,13 +7,14 @@ public class Main {
 
         Galaxy galaxy = GalaxyConfig.Create();
 
-        // Displaying all Solar Systems in Galaxy
-        System.out.println("\nCenter: " + galaxy.getCenter().toString());
-        System.out.println("\nNorth: " + galaxy.getNorth().toString());
-        System.out.println("\nNorth-East: " + galaxy.getNorthEast().toString());
-        System.out.println("\nSouth-East: " + galaxy.getSouthEast().toString());
-        System.out.println("\nSouth: " + galaxy.getSouth().toString());
-        System.out.println("\nSouth-West: " + galaxy.getSouthWest().toString());
-        System.out.println("\nNorth-West: " + galaxy.getNorthWest().toString());
+        galaxy.getGalaxyInfo();
+
+        System.out.println(galaxy.getNorth().getPlanets());
+
+        System.out.println(galaxy.getPlayerShips(galaxy.red));
+
+        //galaxy.getPlayerShips(galaxy.red);
+        //galaxy.getPlayerShips(galaxy.blue);
+
     }
 }

@@ -1,49 +1,77 @@
 package com.company;
 
-public class Galaxy {
-    SolarSystem center;
-    SolarSystem north;
-    SolarSystem northEast;
-    SolarSystem southEast;
-    SolarSystem south;
-    SolarSystem southWest;
-    SolarSystem northWest;
+import com.company.Units.Unit;
 
-    public Galaxy() {
-        this.center = new SolarSystem();
-        this.north = new SolarSystem();
-        this.northEast = new SolarSystem();
-        this.southEast = new SolarSystem();
-        this.south = new SolarSystem();
-        this.southWest = new SolarSystem();
-        this.northWest = new SolarSystem();
+import java.util.*;
+
+public class Galaxy {
+    Player blue, red;
+    Map<String, SolarSystem> systems;
+
+    public Galaxy(Player blue, Player red, Map<String, SolarSystem> systemMap) {
+        // Players in Galaxy
+        this.blue = blue;
+        this.red = red;
+        this.systems = systemMap;
+    }
+
+    // Method that returns the string values of all systems in galaxy
+    public void getGalaxyInfo() {
+        systems.forEach((key, value) -> {
+            System.out.printf("%s: %s\n\n", key, value.toString());
+        });
+    }
+
+    public List<Unit> getPlayerShips(Player player) {
+
+        System.out.printf("\nShips controlled by %s:\n", player.getName());
+
+        // Iterate over each system and then each ship to determine
+        // if the ship is owned by the requested Player
+        List<Unit> playerShips = new ArrayList<>();
+        systems.forEach((key, value) -> value.getShips().forEach(ship -> {
+            if (ship.getPlayer().equals(player)) {
+                playerShips.add(ship);
+            }}));
+
+        // Sort ships by Combat values
+        playerShips.sort((o1, o2) -> o2.getCombatValue() - o1.getCombatValue());
+        playerShips.forEach(ship -> System.out.println(ship.toString()));
+
+        // Returns List of Ships
+        return playerShips;
+
+    }
+
+    public Map<String, SolarSystem> getSystems() {
+        return systems;
     }
 
     public SolarSystem getCenter() {
-        return center;
+        return systems.get("Center");
     }
 
     public SolarSystem getNorth() {
-        return north;
+        return systems.get("North");
     }
 
     public SolarSystem getNorthEast() {
-        return northEast;
+        return systems.get("North-East");
     }
 
     public SolarSystem getSouthEast() {
-        return southEast;
+        return systems.get("South-East");
     }
 
     public SolarSystem getSouth() {
-        return south;
+        return  systems.get("South");
     }
 
     public SolarSystem getSouthWest() {
-        return southWest;
+        return systems.get("South-West");
     }
 
     public SolarSystem getNorthWest() {
-        return northWest;
+        return systems.get("North-West");
     }
 }

@@ -12,7 +12,9 @@ public class Cruiser implements Unit {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Cruiser{");
-        sb.append("player=").append(player);
+        sb.append("combatValue=").append(this.getCombatValue());
+        sb.append(", ResourceCost=").append(this.getResourceCost());
+        sb.append(", player=").append(player.getColor());
         sb.append('}');
         return sb.toString();
     }
