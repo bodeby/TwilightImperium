@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.Units.Destroyer;
+import com.company.Units.Dreadnought;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,20 +10,22 @@ public class Main {
 
         Galaxy galaxy = GalaxyConfig.Create();
 
-        //galaxy.getGalaxyInfo();
-
-        //galaxy.getPlayerShips(galaxy.blue);
-        //galaxy.getPlayerShips(galaxy.red);
-
         // Demo Controlled
         galaxy.getCenter().setControlledBy(galaxy.blue);
         galaxy.getNorth().setControlledBy(galaxy.red);
 
-        //galaxy.getGalaxyStatus();
-
         Galaxy testGalaxy = GalaxyGenerator.generate();
 
         testGalaxy.getGalaxyInfo();
+
+        System.out.println(testGalaxy.getRed());
+        System.out.println(testGalaxy.getBlue());
+
+
+        galaxy.getNorth().addShip(new Dreadnought(galaxy.blue));
+        galaxy.getNorth().addShip(new Destroyer(galaxy.blue));
+
+        galaxy.getNorth().spaceBattle();
 
     }
 }

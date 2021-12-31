@@ -1,6 +1,8 @@
 package com.company;
 import com.company.Units.Unit;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class SolarSystem implements Iterable<Planet> {
     Set<Planet> planets;
@@ -61,6 +63,59 @@ public class SolarSystem implements Iterable<Planet> {
     // Method to add Units to the System
     public void addShip(Unit ship) {
         this.ships.add(ship);
+    }
+
+
+    public void spaceBattle() {
+        int round = 1;
+        boolean flag;
+        AtomicInteger blueHits= new AtomicInteger();
+        AtomicInteger redHits = new AtomicInteger();
+
+        // Blue Units in this System
+        List<Unit> blueShips = this.getShips().stream()
+                .filter(ship -> ship.getPlayer().getColor().equals("blue"))
+                .collect(Collectors.toList());
+
+        // Red Units in this System
+        List<Unit> redShips = this.getShips().stream()
+                .filter(ship -> ship.getPlayer().getColor().equals("red"))
+                .collect(Collectors.toList());
+
+        // Sort Values
+        blueShips.sort((o1, o2) -> o2.getCombatValue() - o1.getCombatValue());
+        redShips.sort(((o1, o2) -> o2.getCombatValue() - o1.getCombatValue()));
+
+
+        System.out.println("Blue Hits: " + blueHits);
+        System.out.println("Red Hits: " + redHits);
+
+
+        flag = false;
+        while (blueShips.size() != 0 || redShips.size() != 0) {
+            System.out.println("\nRound: " + round);
+            round++;
+
+            // Roll for Blue Hits
+            blueShips.forEach(unit -> {
+                if (Die.Roll() >= unit.getCombatValue()) {
+                    blueHits.getAndIncrement();
+                }
+            });
+
+            // Roll for Red Hits
+            redShips.forEach(unit -> {
+                if (Die.Roll() >= unit.getCombatValue()) {
+                    redHits.getAndIncrement();
+                }
+            });
+
+            blueShips.remove(blueShips.size()-1);
+            redShips.remove(redShips.size()-1);
+
+            System.out.println("Blue: " + blueShips.size());
+            System.out.println("Red: " + redShips.size());
+        }
     }
 
     @Override
