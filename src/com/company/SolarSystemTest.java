@@ -1,8 +1,15 @@
 package com.company;
+import com.company.Exceptions.MaximumPlanetsException;
+import com.company.PlayerEnums.HacanNames;
+import com.company.PlayerEnums.LetnevNames;
+import com.company.Units.Cruiser;
+import com.company.Units.Destroyer;
+import com.company.Units.Unit;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,19 +21,21 @@ import static org.junit.jupiter.api.Assertions.*;
  * AAU-Mail: fthorb20@student.aau.dk
  */
 
+// https://junit.org/junit5/docs/current/user-guide/#writing-tests-assertions
+
 class SolarSystemTest {
 
     Galaxy galaxy;
     SolarSystem center, north, south;
-    Player red, blue;
+    Player testPlayer, testPlayer2;
 
     @BeforeEach
     public void setup() {
         // Galaxy
 
         // Test Players
-        blue = new Player("Crassus", "The Emirates of Hacan", "blue");
-        red = new Player("Pompey", "Federation of Sol", "red");
+        testPlayer = new Player(String.valueOf(HacanNames.Gila), "The Emirates of Hacan", "blue");
+        testPlayer2 = new Player(String.valueOf(LetnevNames.Unlenn), "The Barony of Letnev", "red");
 
         // Galaxy initialization
         Map<String, SolarSystem> systemMap = new HashMap<>();
@@ -40,43 +49,79 @@ class SolarSystemTest {
         systemMap.put("North", north);
         systemMap.put("South", south);
 
-        galaxy = new Galaxy(red, blue, systemMap);
+        galaxy = new Galaxy(testPlayer, testPlayer2, systemMap);
 
         // Central Systems Relations
-        //center.addNeighbour(north);
-        //north.addNeighbour(center);
+        center.addNeighbour("North");
+        north.addNeighbour("Center");
     }
 
 
     @Test
     void addPlanet() {
         Planet mirage = new Planet(PlanetNames.Mirage);
+
         center.addPlanet(mirage);
         center.addPlanet(new Planet(PlanetNames.VegaMajor));
         center.addPlanet(new Planet(PlanetNames.RigelII));
 
+        MaximumPlanetsException exception = assertThrows(
+                MaximumPlanetsException.class,
+                () -> center.addPlanet(new Planet(PlanetNames.HopesEnd))
+        );
+
+        assertEquals("A system can't have more than 3 planets", exception.getMessage());
+
         assertTrue(center.getPlanets().contains(mirage));
+        assertFalse(center.getPlanets().contains(new Planet(PlanetNames.Velnor)));
     }
 
     @Test
     void getPlanets() {
+
+        Planet mirage = new Planet(PlanetNames.Mirage);
+        center.addPlanet(mirage);
+
+        assertTrue(center.getPlanets().contains(mirage));
+        assertFalse(center.getPlanets().contains(new Planet(PlanetNames.Velnor)));
+
     }
 
     @Test
     void getShips() {
+
+        ArrayList<Unit> ships = new ArrayList<Unit>();
+
+        ships.add(new Destroyer(testPlayer));
+        ships.add(new Cruiser(testPlayer));
+
+        assertEquals(0, center.getShips().size());
+
+        center.shipEnter(ships);
+
+        assertEquals(center.getShips(), ships);
     }
 
     @Test
     void addNeighbour() {
-        // Check for true
-        assertTrue(center.getNeighbours().contains(north));
-        assertTrue(north.getNeighbours().contains(center));
 
-        // Check for false
-        assertFalse(north.getNeighbours().contains(south));
+        assertTrue(center.getNeighbours().contains("North"));
+
+        assertFalse(center.getNeighbours().contains("South"));
+        center.addNeighbour("South");
+
+        assertTrue(center.getNeighbours().contains("South"));
     }
 
     @Test
     void addShip() {
+
+        Destroyer ship = new Destroyer(testPlayer);
+
+        assertFalse(center.getShips().contains(ship));
+
+        center.addShip(ship);
+
+        assertTrue(center.getShips().contains(ship));
     }
 }

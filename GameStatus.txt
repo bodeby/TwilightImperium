@@ -7,7 +7,7 @@ Uncontrolled planets:
      MecatolRex
      Industrex
      Mirage
-     RigelI
      RigelII
+     RigelI
      VegaMajor
      VegaMinor

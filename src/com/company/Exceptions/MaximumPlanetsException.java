@@ -1,5 +1,10 @@
 package com.company.Exceptions;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 public class MaximumPlanetsException extends RuntimeException {
     String msg;
 

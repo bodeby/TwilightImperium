@@ -15,23 +15,6 @@ import java.util.Map;
  * AAU-Mail: fthorb20@student.aau.dk
  */
 
-/**
- * At the center is a system that contains the planet Mecatol Rex.
- * To the north is system that contains the planets Vega Minor and Vega Major.
- * To the north-east is an empty system.
- * To the south-east is a system that contains the planet Industrex.
- * To the south is a system that contains the planets Rigel I and Rigel II.
- * To the south-west is an empty system.
- * To the nort-west is a system that contains the planet Mirage.
- *
- * The Galaxy contains the following ships:
- * In the Mecatol Rex system there are two Dreadnoughts and a Destroyer owned by the blue player.
- * In the Vega Minor and Vega Major system there are two Cruisers and a Carrier owned by the red player.
- *
- * You decide on the unspecified properties of the Galaxy, e.g. planet resources.
- *
- */
-
 public class GalaxyConfig {
     public static Galaxy Create() {
         // Test Players
@@ -101,9 +84,6 @@ public class GalaxyConfig {
         galaxy.getNorth().addShip(new Cruiser(red));
         galaxy.getNorth().addShip(new Cruiser(red));
         galaxy.getNorth().addShip(new Carrier(red));
-
-        // TODO: delete this test
-        galaxy.getCenter().addShip(new Destroyer(red));
 
         return galaxy;
     }
