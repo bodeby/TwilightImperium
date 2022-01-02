@@ -110,7 +110,7 @@ public class Main {
 
         // 13: resolve space combat in a system
 
-        // - Using system.spaceBattle()
+        // Option 1:  Using system.spaceBattle() directly
 
 
         Cruiser p2Cruiser = new Cruiser(demoPlayer2);
@@ -120,7 +120,7 @@ public class Main {
         demoSystem.addShip(p2Destroyer);
         demoSystem.spaceBattle();
 
-        // - Entering Enemy controlled system
+        // Option 2: Entering Enemy controlled system
 
         /*
          ArrayList<Unit> p2Units = new ArrayList<>();

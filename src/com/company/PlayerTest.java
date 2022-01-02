@@ -29,8 +29,8 @@ class PlayerTest {
     @Test
     void testEquals() {
         // Test Equals on test players
-        assertTrue(testPlayer.equals(testPlayer));
-        assertFalse(testPlayer.equals(testPlayer2));
+        assertEquals(testPlayer, testPlayer);
+        assertNotEquals(testPlayer, testPlayer2);
     }
 
     @Test

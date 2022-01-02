@@ -122,7 +122,6 @@ public class Galaxy {
                 }
             });
 
-            // Closes the writer
             fileWriter.close();
         } catch (Exception e) {
             e.getStackTrace();
