@@ -1,4 +1,5 @@
 package com.company;
+
 import com.company.Exceptions.MaximumPlanetsException;
 import com.company.PlayerEnums.HacanNames;
 import com.company.PlayerEnums.LetnevNames;
@@ -41,9 +42,9 @@ class SolarSystemTest {
         Map<String, SolarSystem> systemMap = new HashMap<>();
 
         // Systems
-        center      = new SolarSystem();
-        north       = new SolarSystem();
-        south       = new SolarSystem();
+        center = new SolarSystem();
+        north = new SolarSystem();
+        south = new SolarSystem();
 
         systemMap.put("Center", center);
         systemMap.put("North", north);

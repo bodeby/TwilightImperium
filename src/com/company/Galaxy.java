@@ -43,8 +43,8 @@ public class Galaxy {
         this.systems.forEach((key, value) -> value.getShips().forEach(ship -> {
             if (ship.getPlayer().equals(player)) {
                 playerShips.add(ship);
-            }}));
-
+            }
+        }));
 
 
         // Sort ships by Combat values
@@ -70,18 +70,18 @@ public class Galaxy {
 
         // iterate over systems in the galaxy
         this.systems.forEach((key, value) -> {
-                switch (value.getControlledBy().getColor()) {
-                    case "red" -> RuledByRed.add(value);
-                    case "blue" -> RuledByBlue.add(value);
-                    default -> RuledByNone.add(value);
-                }
+            switch (value.getControlledBy().getColor()) {
+                case "red" -> RuledByRed.add(value);
+                case "blue" -> RuledByBlue.add(value);
+                default -> RuledByNone.add(value);
+            }
         });
 
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter("GameStatus.txt"));
 
             // Blue Players Planets
-            fileWriter.write("\nBlue Player ("+ this.blue.getRace()+"):\n");
+            fileWriter.write("\nBlue Player (" + this.blue.getRace() + "):\n");
             RuledByBlue.forEach(system -> {
                 if (system.getPlanets().size() > 0) {
                     system.getPlanets().forEach(planet -> {
@@ -95,7 +95,7 @@ public class Galaxy {
             });
 
             // Red Players Planets
-            fileWriter.write("\nRed Player ("+ this.red.getRace()+"):\n");
+            fileWriter.write("\nRed Player (" + this.red.getRace() + "):\n");
             RuledByRed.forEach(system -> {
                 if (system.getPlanets().size() > 0) {
                     system.getPlanets().forEach(planet -> {
@@ -184,7 +184,7 @@ public class Galaxy {
     }
 
     public SolarSystem getSouth() {
-        return  systems.get("South");
+        return systems.get("South");
     }
 
     public SolarSystem getSouthWest() {

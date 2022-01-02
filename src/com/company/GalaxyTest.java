@@ -36,7 +36,7 @@ class GalaxyTest {
         Optional<Planet> only = planets.stream().findFirst();
         System.out.println(only);
 
-        assertEquals(1,1);
+        assertEquals(1, 1);
 
     }
 

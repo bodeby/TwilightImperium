@@ -14,7 +14,7 @@ public class Dreadnought implements Unit {
     int movementSpeed;
     int capacity;
 
-    public Dreadnought(Player player)  {
+    public Dreadnought(Player player) {
         this.player = player;
         this.resourceCost = 5;
         this.combatValue = 5;

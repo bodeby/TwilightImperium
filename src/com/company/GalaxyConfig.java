@@ -19,32 +19,32 @@ public class GalaxyConfig {
     public static Galaxy Create() {
         // Test Players
         Player blue = new Player("Crassus", "The Emirates of Hacan", "blue");
-        Player red  = new Player("Pompey", "Federation of Sol", "red");
+        Player red = new Player("Pompey", "Federation of Sol", "red");
 
         // Systems Planets
-        Planet MecatolRex   = new Planet(PlanetNames.MecatolRex);   // Center
-        Planet VegaMinor    = new Planet(PlanetNames.VegaMinor);    // North
-        Planet VegaMajor    = new Planet(PlanetNames.VegaMajor);    // North
-        Planet Industrex    = new Planet(PlanetNames.Industrex);    // South-East
-        Planet RigelI       = new Planet(PlanetNames.RigelI);       // South
-        Planet RigelII      = new Planet(PlanetNames.RigelII);      // South
-        Planet Mirage       = new Planet(PlanetNames.Mirage);       // North-West
+        Planet MecatolRex = new Planet(PlanetNames.MecatolRex);   // Center
+        Planet VegaMinor = new Planet(PlanetNames.VegaMinor);    // North
+        Planet VegaMajor = new Planet(PlanetNames.VegaMajor);    // North
+        Planet Industrex = new Planet(PlanetNames.Industrex);    // South-East
+        Planet RigelI = new Planet(PlanetNames.RigelI);       // South
+        Planet RigelII = new Planet(PlanetNames.RigelII);      // South
+        Planet Mirage = new Planet(PlanetNames.Mirage);       // North-West
 
         // Systems
-        SolarSystem center      = new SolarSystem(MecatolRex);
-        SolarSystem north       = new SolarSystem(VegaMinor, VegaMajor);
-        SolarSystem northEast   = new SolarSystem();
-        SolarSystem southEast   = new SolarSystem(Industrex);
-        SolarSystem south       = new SolarSystem(RigelI, RigelII);
-        SolarSystem southWest   = new SolarSystem();
-        SolarSystem northWest   = new SolarSystem(Mirage);
+        SolarSystem center = new SolarSystem(MecatolRex);
+        SolarSystem north = new SolarSystem(VegaMinor, VegaMajor);
+        SolarSystem northEast = new SolarSystem();
+        SolarSystem southEast = new SolarSystem(Industrex);
+        SolarSystem south = new SolarSystem(RigelI, RigelII);
+        SolarSystem southWest = new SolarSystem();
+        SolarSystem northWest = new SolarSystem(Mirage);
 
         Map<String, SolarSystem> systemMap = new HashMap<>();
-        systemMap.put("Center",     center);
-        systemMap.put("North",      north);
+        systemMap.put("Center", center);
+        systemMap.put("North", north);
         systemMap.put("North-East", northEast);
         systemMap.put("South-East", southEast);
-        systemMap.put("South",      south);
+        systemMap.put("South", south);
         systemMap.put("South-West", southWest);
         systemMap.put("North-West", northWest);
 
@@ -53,7 +53,7 @@ public class GalaxyConfig {
         // Galaxy
         Galaxy galaxy = new Galaxy(blue, red, systemMap);
 
-       // Central Systems Relations
+        // Central Systems Relations
         Arrays.asList("North", "North-East", "South-East", "South", "South-West", "North-West").forEach(center::addNeighbour);
 
         // Northern System Relations

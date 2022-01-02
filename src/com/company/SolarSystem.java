@@ -10,9 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /*
-* Name: Frederik Bode Thorbensen
-* AAU-Mail: fthorb20@student.aau.dk
-*/
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
 
 public class SolarSystem implements Iterable<Planet> {
     Set<Planet> planets;

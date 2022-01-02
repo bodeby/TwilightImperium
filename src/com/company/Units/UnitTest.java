@@ -32,7 +32,7 @@ class UnitTest {
 
     @Test
     void getResourceCost() {
-        assertEquals(carrier.getResourceCost(),3);
+        assertEquals(carrier.getResourceCost(), 3);
         assertEquals(cruiser.getResourceCost(), 2);
         assertEquals(destroyer.getResourceCost(), 1);
         assertEquals(dreadnought.getResourceCost(), 5);
@@ -40,7 +40,7 @@ class UnitTest {
 
     @Test
     void getCombatValue() {
-        assertEquals(carrier.getCombatValue(),9);
+        assertEquals(carrier.getCombatValue(), 9);
         assertEquals(cruiser.getCombatValue(), 7);
         assertEquals(destroyer.getCombatValue(), 9);
         assertEquals(dreadnought.getCombatValue(), 5);
@@ -58,7 +58,7 @@ class UnitTest {
     void getCapacity() {
         assertEquals(carrier.getCapacity(), 6);
         assertEquals(cruiser.getCapacity(), 0);
-        assertEquals(destroyer.getCapacity(),0);
+        assertEquals(destroyer.getCapacity(), 0);
         assertEquals(dreadnought.getCapacity(), 0);
     }
 
@@ -67,7 +67,7 @@ class UnitTest {
         assertEquals(carrier.getPlayer(), testPlayer);
         assertEquals(cruiser.getPlayer(), testPlayer);
 
-        assertNotEquals(destroyer.getPlayer(),testPlayer2);
+        assertNotEquals(destroyer.getPlayer(), testPlayer2);
         assertNotEquals(dreadnought.getPlayer(), testPlayer2);
     }
 }

@@ -13,7 +13,7 @@ public class Planet {
 
     public Planet(PlanetNames name) {
         this.name = name;
-        this.resourceProduction = ThreadLocalRandom.current().nextInt(0,6);
+        this.resourceProduction = ThreadLocalRandom.current().nextInt(0, 6);
     }
 
     public PlanetNames getName() {

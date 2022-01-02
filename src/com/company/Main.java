@@ -47,7 +47,6 @@ public class Main {
         demoUnits.add(demoDreadnought);
 
 
-
         // 4: Class to represent a Planet
 
         Planet demoPlanet = new Planet(PlanetNames.Mirage);

@@ -36,7 +36,7 @@ public class GalaxyGenerator {
 
         // Initialize Players
         blue = new Player(blueName, blueRace, "blue");
-        red  = new Player(redName, redRace, "red");
+        red = new Player(redName, redRace, "red");
 
 
         // Track Which planet names are taken
@@ -51,9 +51,9 @@ public class GalaxyGenerator {
 
         // Generate available planets
         for (int i = 0; i < numberOfPlanets; i++) {
-            PlanetNames name = PlanetNames.values()[ThreadLocalRandom.current().nextInt(0,PlanetNames.values().length)];
+            PlanetNames name = PlanetNames.values()[ThreadLocalRandom.current().nextInt(0, PlanetNames.values().length)];
             while (takenPlanets.contains(name)) {
-                name = PlanetNames.values()[ThreadLocalRandom.current().nextInt(0,PlanetNames.values().length)];
+                name = PlanetNames.values()[ThreadLocalRandom.current().nextInt(0, PlanetNames.values().length)];
             }
 
             // Create Planet with name and add to list of used
@@ -63,11 +63,11 @@ public class GalaxyGenerator {
         }
 
         Map<String, SolarSystem> systemMap = new HashMap<>();
-        systemMap.put("Center",     new SolarSystem(new Planet(PlanetNames.MecatolRex)));
-        systemMap.put("North",      new SolarSystem());
+        systemMap.put("Center", new SolarSystem(new Planet(PlanetNames.MecatolRex)));
+        systemMap.put("North", new SolarSystem());
         systemMap.put("North-East", new SolarSystem());
         systemMap.put("South-East", new SolarSystem());
-        systemMap.put("South",      new SolarSystem());
+        systemMap.put("South", new SolarSystem());
         systemMap.put("South-West", new SolarSystem());
         systemMap.put("North-West", new SolarSystem());
 
@@ -82,14 +82,14 @@ public class GalaxyGenerator {
 
         while (planets.size() != 0) {
             // Random Index
-            int random = ThreadLocalRandom.current().nextInt(0, systemKeys.size()-1);
+            int random = ThreadLocalRandom.current().nextInt(0, systemKeys.size() - 1);
 
             // If the system have less than 3 planets
             if (systemMap.get(systemKeys.get(random)).getPlanets().size() != 3) {
 
                 // addPlanet to planet to system and remove planet from planet list
-                systemMap.get(systemKeys.get(random)).addPlanet(planets.get(planets.size()-1));
-                planets.remove(planets.size()-1);
+                systemMap.get(systemKeys.get(random)).addPlanet(planets.get(planets.size() - 1));
+                planets.remove(planets.size() - 1);
             }
         }
 
@@ -119,23 +119,23 @@ public class GalaxyGenerator {
 
 
         // Generate Random units
-        int startingUnits = ThreadLocalRandom.current().nextInt(2,4);
+        int startingUnits = ThreadLocalRandom.current().nextInt(2, 4);
 
         ArrayList<Unit> blueUnits = new ArrayList<>();
-        ArrayList<Unit> redUnits  = new ArrayList<>();
+        ArrayList<Unit> redUnits = new ArrayList<>();
 
-        for (int i = 0; i < startingUnits; i++ ) {
+        for (int i = 0; i < startingUnits; i++) {
             blueUnits.add(unitGenerator(blue));
             redUnits.add(unitGenerator(red));
         }
 
         // Pick a random starting system
         int blueStartIndex, redStartIndex;
-        blueStartIndex = ThreadLocalRandom.current().nextInt(1,systemKeys.size());
-        redStartIndex = ThreadLocalRandom.current().nextInt(1,systemKeys.size());
+        blueStartIndex = ThreadLocalRandom.current().nextInt(1, systemKeys.size());
+        redStartIndex = ThreadLocalRandom.current().nextInt(1, systemKeys.size());
 
         while (redStartIndex == blueStartIndex) {
-            redStartIndex = ThreadLocalRandom.current().nextInt(1,systemKeys.size());
+            redStartIndex = ThreadLocalRandom.current().nextInt(1, systemKeys.size());
         }
 
         // Place blue's units in the chosen system
@@ -171,8 +171,8 @@ public class GalaxyGenerator {
 
         switch (race) {
             case "The Barony of Letnev" -> name = String.valueOf(LetnevNames.values()[ThreadLocalRandom.current().nextInt(0, 2)]);
-            case "The Emirates of Hacan" -> name = String.valueOf(HacanNames.values()[ThreadLocalRandom.current().nextInt(0,2)]);
-            case "The Federation of Sol" -> name = String.valueOf(SolNames.values()[ThreadLocalRandom.current().nextInt(0,2)]);
+            case "The Emirates of Hacan" -> name = String.valueOf(HacanNames.values()[ThreadLocalRandom.current().nextInt(0, 2)]);
+            case "The Federation of Sol" -> name = String.valueOf(SolNames.values()[ThreadLocalRandom.current().nextInt(0, 2)]);
             default -> name = "Thanos";
         }
 
