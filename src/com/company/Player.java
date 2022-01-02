@@ -2,6 +2,11 @@ package com.company;
 
 import java.util.Objects;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 public class Player {
     String name;
     String race;

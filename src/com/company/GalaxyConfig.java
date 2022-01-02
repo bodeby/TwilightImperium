@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 /**
  * At the center is a system that contains the planet Mecatol Rex.
  * To the north is system that contains the planets Vega Minor and Vega Major.

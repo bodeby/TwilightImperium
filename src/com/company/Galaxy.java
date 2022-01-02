@@ -1,11 +1,19 @@
 package com.company;
 
+import com.company.Exceptions.DuplcatePlanetException;
+import com.company.Exceptions.InvalidCenterSystemException;
+import com.company.Exceptions.MaximumPlanetsException;
 import com.company.Units.Unit;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
 
 public class Galaxy {
     Player blue, red;
@@ -112,6 +120,39 @@ public class Galaxy {
             e.getStackTrace();
         }
 
+
+    }
+
+    public void isValid() {
+
+        // 1.1 The center system must have exactly one planet named Mecatol Rex.
+        if (this.getCenter().getPlanets().size() != 1) {
+            throw new InvalidCenterSystemException("Center System must only contain 1 Planet");
+        }
+
+        // 1.2 Check MecatolRex is the only planet
+        this.getCenter().getPlanets().forEach(planet -> {
+            if (planet.getName() != PlanetNames.MecatolRex) {
+                throw new InvalidCenterSystemException("Center Planet is not MecatolRex");
+            }
+        });
+
+        // 2 Every planet belongs to at most one system.
+        ArrayList<PlanetNames> taken_planets = new ArrayList<>();
+        this.getSystems().forEach((key, value) -> value.getPlanets().forEach(planet -> {
+            if (!taken_planets.contains(planet.getName())) {
+                taken_planets.add(planet.getName());
+            } else {
+                throw new DuplcatePlanetException("Planet is present in more than one system");
+            }
+        }));
+
+        // 3 Every system has at most three planets.
+        this.getSystems().forEach((key, value) -> {
+            if (value.getPlanets().size() > 3) {
+                throw new MaximumPlanetsException("A system can't have more than 3 planets");
+            }
+        });
 
     }
 

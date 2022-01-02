@@ -1,8 +1,17 @@
 package com.company;
+
+import com.company.Exceptions.MaximumNeighboursException;
+import com.company.Exceptions.MaximumPlanetsException;
 import com.company.Units.Unit;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+/*
+* Name: Frederik Bode Thorbensen
+* AAU-Mail: fthorb20@student.aau.dk
+*/
 
 public class SolarSystem implements Iterable<Planet> {
     Set<Planet> planets;
@@ -10,9 +19,6 @@ public class SolarSystem implements Iterable<Planet> {
     ArrayList<Unit> ships;
     Player controlledBy;
 
-    public void setControlledBy(Player controlledBy) {
-        this.controlledBy = controlledBy;
-    }
 
     public SolarSystem(Planet... planets) {
         this.planets = new HashSet<>();
@@ -20,9 +26,10 @@ public class SolarSystem implements Iterable<Planet> {
         this.ships = new ArrayList<>();
         this.controlledBy = new Player("Uncontrolled", "Unspecified", "Unspecified");
 
-        Collections.addAll(this.planets, planets);
-        //throw new IllegalArgumentException("No more than 3 planets are allowed");
+        //Collections.addAll(this.planets, planets);
+        Arrays.stream(planets).toList().forEach(this::addPlanet);
     }
+
 
     public Set<Planet> getPlanets() {
         return planets;
@@ -40,24 +47,32 @@ public class SolarSystem implements Iterable<Planet> {
         return controlledBy;
     }
 
+    public void setControlledBy(Player controlledBy) {
+        System.out.println("\n" + controlledBy.getColor() + " has taken control of this system\n");
+        this.controlledBy = controlledBy;
+    }
+
+    public void setShips(ArrayList<Unit> ships) {
+        this.ships = ships;
+    }
+
 
     // Method to add Planets to the system
-    // TODO: Rewrite method to check for validity
-    public void addPlanet (Planet planet) {
+    public void addPlanet(Planet planet) {
         if (planets.size() < 3) {
             this.planets.add(planet);
         } else {
-           System.out.println("A System can't have more than 3 planets");
+            throw new MaximumPlanetsException("A system can't have more than 3 planets");
         }
     }
 
     // Method to add neighbours to the
     public void addNeighbour(String neighbour) {
-       if (this.neighbours.size() <= 5) {
-           this.neighbours.add(neighbour);
-       } else {
-           System.out.println("A System can't have more than 6 Neighbours");
-       }
+        if (this.neighbours.size() <= 5) {
+            this.neighbours.add(neighbour);
+        } else {
+            throw new MaximumNeighboursException("A system can't have more than 5 neighbouring systems");
+        }
     }
 
     // Method to add Units to the System
@@ -66,33 +81,46 @@ public class SolarSystem implements Iterable<Planet> {
     }
 
 
+    public void shipEnter(SolarSystem from, ArrayList<Unit> units) {
+
+
+        units.forEach(unit -> {
+            this.addShip(unit);
+
+            if (unit.getPlayer() != this.getControlledBy()) {
+                spaceBattle();
+            }
+        });
+
+    }
+
+
     public void spaceBattle() {
         int round = 1;
-        boolean flag;
-        AtomicInteger blueHits= new AtomicInteger();
+        boolean inBattle = true;
+
+        // To register the Player hits each round
+        AtomicInteger blueHits = new AtomicInteger();
         AtomicInteger redHits = new AtomicInteger();
 
         // Blue Units in this System
-        List<Unit> blueShips = this.getShips().stream()
+        ArrayList<Unit> blueShips = this.getShips()
+                .stream()
                 .filter(ship -> ship.getPlayer().getColor().equals("blue"))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
         // Red Units in this System
-        List<Unit> redShips = this.getShips().stream()
+        ArrayList<Unit> redShips = this.getShips()
+                .stream()
                 .filter(ship -> ship.getPlayer().getColor().equals("red"))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        // Sort Values
-        blueShips.sort((o1, o2) -> o2.getCombatValue() - o1.getCombatValue());
-        redShips.sort(((o1, o2) -> o2.getCombatValue() - o1.getCombatValue()));
+        // Sort Values by Resource Cost
+        blueShips.sort((o1, o2) -> o2.getResourceCost() - o1.getResourceCost());
+        redShips.sort(((o1, o2) -> o2.getResourceCost() - o1.getResourceCost()));
 
-
-        System.out.println("Blue Hits: " + blueHits);
-        System.out.println("Red Hits: " + redHits);
-
-
-        flag = false;
-        while (blueShips.size() != 0 || redShips.size() != 0) {
+        // Simulate battle
+        while (inBattle) {
             System.out.println("\nRound: " + round);
             round++;
 
@@ -110,11 +138,42 @@ public class SolarSystem implements Iterable<Planet> {
                 }
             });
 
-            blueShips.remove(blueShips.size()-1);
-            redShips.remove(redShips.size()-1);
+            System.out.println("Blue units: " + blueShips);
+            System.out.println("Red units:  " + redShips);
 
-            System.out.println("Blue: " + blueShips.size());
-            System.out.println("Red: " + redShips.size());
+            System.out.println("\nblue scored: " + blueHits + " hit(s) this round");
+            System.out.println("red scored:  " + redHits + "  hit(s) this round\n");
+
+            // Execute red ships based on Blue Hits
+            for (int i = 0; i < blueHits.get(); i++) {
+                if (redShips.size() != 0 && inBattle) {
+                    System.out.println(redShips.get(redShips.size() - 1).toString() + " destroyed");
+                    redShips.remove(redShips.size() - 1);
+                } else {
+                    inBattle = false;
+                }
+            }
+
+            // Execute blue ships based on Red Hits
+            for (int k = 0; k < redHits.get(); k++) {
+                if (blueShips.size() != 0 && inBattle) {
+                    System.out.println(blueShips.get(blueShips.size() - 1).toString() + " destroyed");
+                    blueShips.remove(blueShips.size() - 1);
+                } else {
+                    inBattle = false;
+                }
+            }
+
+            if (blueShips.size() == 0 && redShips.size() != 0) {
+                setControlledBy(redShips.get(0).getPlayer());
+                setShips(redShips);
+            } else if (redShips.size() == 0 && blueShips.size() != 0) {
+                setControlledBy(blueShips.get(0).getPlayer());
+                setShips(blueShips);
+            } else {
+                System.out.printf("\nBlue has: %d units left\n", blueShips.size());
+                System.out.printf("Red has:  %d units left\n", redShips.size());
+            }
         }
     }
 

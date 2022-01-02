@@ -2,6 +2,11 @@ package com.company.Units;
 
 import com.company.Player;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 public class Destroyer implements Unit {
     Player player;
     int resourceCost;
@@ -9,22 +14,20 @@ public class Destroyer implements Unit {
     int movementSpeed;
     int capacity;
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Destroyer{");
-        sb.append("combatValue=").append(this.getCombatValue());
-        sb.append(", ResourceCost=").append(this.getResourceCost());
-        sb.append(", player=").append(player.getColor());
-        sb.append('}');
-        return sb.toString();
-    }
-
     public Destroyer(Player player) {
         this.player = player;
         this.resourceCost = 1;
         this.combatValue = 9;
         this.movementSpeed = 2;
         this.capacity = 0;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Cruiser{");
+        sb.append(player.getColor());
+        sb.append('}');
+        return sb.toString();
     }
 
     public Player getPlayer() {

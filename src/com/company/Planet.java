@@ -2,6 +2,11 @@ package com.company;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 public class Planet {
     Player ruler;
     PlanetNames name;

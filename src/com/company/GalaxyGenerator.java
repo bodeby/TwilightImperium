@@ -8,6 +8,11 @@ import com.company.Units.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+/*
+ * Name: Frederik Bode Thorbensen
+ * AAU-Mail: fthorb20@student.aau.dk
+ */
+
 public class GalaxyGenerator {
     public static Galaxy generate() {
 

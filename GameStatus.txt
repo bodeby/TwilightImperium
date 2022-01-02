@@ -1,13 +1,16 @@
 
-Blue Player (The Emirates of Hacan):
-     MecatolRex
+Blue Player (The Barony of Letnev):
 
-Red Player (Federation of Sol):
-     VegaMinor
-     VegaMajor
+Red Player (The Emirates of Hacan):
 
 Uncontrolled planets:
-     Industrex
-     Mirage
-     RigelII
+     MecatolRex
+     VegaMinor
+     Perimeter
+     VegaMajor
      RigelI
+     Industrex
+     HopesEnd
+     RigelII
+     Mirage
+     Velnor
