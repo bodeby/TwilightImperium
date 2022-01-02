@@ -8,7 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class Planet {
-    Player ruler;
     PlanetNames name;
     int resourceProduction;
 

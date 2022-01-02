@@ -24,7 +24,7 @@ public class Destroyer implements Unit {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Cruiser{");
+        final StringBuffer sb = new StringBuffer("Destroyer{");
         sb.append(player.getColor());
         sb.append('}');
         return sb.toString();

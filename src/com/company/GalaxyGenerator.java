@@ -46,7 +46,7 @@ public class GalaxyGenerator {
         // Generate Random number of planets in the galaxy, min: 3
         int numberOfPlanets = ThreadLocalRandom.current().nextInt(3, PlanetNames.values().length);
 
-        // Track Which Taken have been created
+        // Track Which planets have been created
         ArrayList<Planet> planets = new ArrayList<>();
 
         // Generate available planets
@@ -138,12 +138,14 @@ public class GalaxyGenerator {
             redStartIndex = ThreadLocalRandom.current().nextInt(1,systemKeys.size());
         }
 
-        // Place red's units in the chosen system
+        // Place blue's units in the chosen system
+        systemMap.get(systemKeys.get(blueStartIndex)).setControlledBy(blue);
         blueUnits.forEach(unit -> {
             systemMap.get(systemKeys.get(blueStartIndex)).addShip(unit);
         });
 
         // Place red's units in the chosen system
+        systemMap.get(systemKeys.get(blueStartIndex)).setControlledBy(red);
         int finalRedStartIndex = redStartIndex;
         redUnits.forEach(unit -> {
             systemMap.get(systemKeys.get(finalRedStartIndex)).addShip(unit);

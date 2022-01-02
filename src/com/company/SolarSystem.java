@@ -5,6 +5,7 @@ import com.company.Exceptions.MaximumPlanetsException;
 import com.company.Units.Unit;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class SolarSystem implements Iterable<Planet> {
         this.planets = new HashSet<>();
         this.neighbours = new HashSet<>();
         this.ships = new ArrayList<>();
-        this.controlledBy = new Player("Uncontrolled", "Unspecified", "Unspecified");
+        this.controlledBy = new Player("Uncontrolled", "", "");
 
         //Collections.addAll(this.planets, planets);
         Arrays.stream(planets).toList().forEach(this::addPlanet);
@@ -48,7 +49,11 @@ public class SolarSystem implements Iterable<Planet> {
     }
 
     public void setControlledBy(Player controlledBy) {
-        System.out.println("\n" + controlledBy.getColor() + " has taken control of this system\n");
+        // Output Change of control in any other scenario than uncontrolled to controlled
+        if (!Objects.equals(this.controlledBy.getName(), "Uncontrolled")) {
+            System.out.println("\n" + controlledBy.getColor() + " has taken control of this system\n");
+        }
+
         this.controlledBy = controlledBy;
     }
 
@@ -81,16 +86,29 @@ public class SolarSystem implements Iterable<Planet> {
     }
 
 
-    public void shipEnter(SolarSystem from, ArrayList<Unit> units) {
+    public void shipEnter(ArrayList<Unit> units) {
+        // Add Units to Systems
 
+        units.forEach(this::addShip);
 
-        units.forEach(unit -> {
-            this.addShip(unit);
+        // Check the newly added Ships conflicts
+        AtomicBoolean bluePresent = new AtomicBoolean(false);
+        AtomicBoolean redPresent = new AtomicBoolean(false);
 
-            if (unit.getPlayer() != this.getControlledBy()) {
-                spaceBattle();
+        this.getShips().forEach(unit -> {
+            if (unit.getPlayer().getColor().equals("blue")) {
+                bluePresent.set(true);
+            } else if (unit.getPlayer().getColor().equals("red")) {
+                redPresent.set(true);
             }
         });
+
+        if (bluePresent.get() && redPresent.get()) {
+            spaceBattle();
+        } else {
+            // No Conclict
+            this.setControlledBy(this.getShips().get(0).getPlayer());
+        }
 
     }
 

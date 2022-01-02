@@ -45,8 +45,16 @@ public class Galaxy {
                 playerShips.add(ship);
             }}));
 
+
+
         // Sort ships by Combat values
-        playerShips.sort((o1, o2) -> o2.getCombatValue() - o1.getCombatValue());
+        playerShips.sort((o1, o2) -> {
+            if (o2.getCombatValue() == o1.getCombatValue()) {
+                return o2.getResourceCost() - o1.getResourceCost();
+            }
+            return o2.getCombatValue() - o1.getCombatValue();
+        });
+
         playerShips.forEach(ship -> System.out.printf("  %s\n", ship.toString()));
 
         // Returns List of Ships
@@ -70,15 +78,15 @@ public class Galaxy {
         });
 
         try {
-            BufferedWriter output = new BufferedWriter(new FileWriter("GameStatus.txt"));
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter("GameStatus.txt"));
 
             // Blue Players Planets
-            output.write("\nBlue Player ("+ this.blue.getRace()+"):\n");
+            fileWriter.write("\nBlue Player ("+ this.blue.getRace()+"):\n");
             RuledByBlue.forEach(system -> {
                 if (system.getPlanets().size() > 0) {
                     system.getPlanets().forEach(planet -> {
                         try {
-                            output.write("     " + planet.getName() + "\n");
+                            fileWriter.write("     " + planet.getName() + "\n");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -87,12 +95,12 @@ public class Galaxy {
             });
 
             // Red Players Planets
-            output.write("\nRed Player ("+ this.red.getRace()+"):\n");
+            fileWriter.write("\nRed Player ("+ this.red.getRace()+"):\n");
             RuledByRed.forEach(system -> {
                 if (system.getPlanets().size() > 0) {
                     system.getPlanets().forEach(planet -> {
                         try {
-                            output.write("     " + planet.getName() + "\n");
+                            fileWriter.write("     " + planet.getName() + "\n");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -101,12 +109,12 @@ public class Galaxy {
             });
 
             // Uncontrolled Planets
-            output.write("\nUncontrolled planets:\n");
+            fileWriter.write("\nUncontrolled planets:\n");
             RuledByNone.forEach(system -> {
                 if (system.getPlanets().size() > 0) {
                     system.getPlanets().forEach(planet -> {
                         try {
-                            output.write("     " + planet.getName() + "\n");
+                            fileWriter.write("     " + planet.getName() + "\n");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -115,7 +123,7 @@ public class Galaxy {
             });
 
             // Closes the writer
-            output.close();
+            fileWriter.close();
         } catch (Exception e) {
             e.getStackTrace();
         }

@@ -24,7 +24,7 @@ public class Carrier implements Unit {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Cruiser{");
+        final StringBuffer sb = new StringBuffer("Carrier{");
         sb.append(player.getColor());
         sb.append('}');
         return sb.toString();
